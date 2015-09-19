@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,6 +7,8 @@ using UnityEngine;
 using Verse;
 using Verse.Sound;
 using RimWorld;
+using Combat_Realism;
+
 namespace DefenceShield
 {
 	internal class Building_DefenceShield : Building
@@ -206,9 +208,13 @@ namespace DefenceShield
             int num = list.Count<Thing>();
             while (i < num)
             {
-                if (list[i] != null && list[i] is Projectile)
+                // TheRedOne: I changed the following few lines from Verse.Projectile to Combat_Realsim.ProjectileCR
+                // to make it check for these instead. 
+                // 
+                // FIXME This will break checks for normal projectiles, but it works with combat realsim projectiles
+                if (list[i] != null && list[i] is ProjectileCR)
                 {
-                    Projectile projectile = (Projectile)list[i];
+                    ProjectileCR projectile = (ProjectileCR)list[i];
                     if (!projectile.Destroyed)
                     {
                         bool flag = true;
